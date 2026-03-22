@@ -1,33 +1,40 @@
-🚦 Smart Traffic Light System using STM32 (Nucleo-L432KC)
+# 🚦 Smart Traffic Light System using STM32 (Nucleo-L432KC)
 
-📌 Project Overview
+---
 
-This project implements a Smart Traffic Light System using an STM32 microcontroller.
+## 📌 Project Overview
+
+This project implements a **Smart Traffic Light System** using an STM32 microcontroller.
 The system controls traffic LEDs (Red, Yellow, Green), handles pedestrian input via a push button, and displays the current state on a TFT display.
 
-The project demonstrates embedded system concepts including:
+The project demonstrates key embedded system concepts:
 
-- GPIO control
-- SysTick timer
-- SPI communication
-- Hardware Abstraction Layer (HAL)
-- Interrupt-driven timing
+* GPIO control
+* SysTick timer
+* SPI communication
+* Hardware Abstraction Layer (HAL)
+* Interrupt-driven timing
 
-🎯 Objectives
+---
 
-- Design a working embedded traffic system
-- Implement timing using SysTick
-- Interface TFT display using SPI
-- Handle user input (push button)
-- Develop modular and reusable embedded code
+## 🎯 Objectives
 
-🧠 System Architecture
+* Design a working embedded traffic system
+* Implement timing using SysTick
+* Interface TFT display using SPI
+* Handle user input (push button)
+* Develop modular and reusable embedded code
 
-Block Diagram
+---
 
-👉 (Insert your block diagram image here)
+## 🧠 System Architecture
 
-🔌 Hardware Components
+### Block Diagram
+
+👉 *(Insert your block diagram image here)*
+
+---
+
 ## 🔌 Hardware Components
 
 | Component           | Quantity |
@@ -42,25 +49,31 @@ Block Diagram
 | Breadboard          | 1        |
 | Jumper Wires        | Multiple |
 
+---
 
-⚙️ Peripherals Used
+## ⚙️ Peripherals Used
 
-GPIO
+### GPIO
 
-Used to control LEDs and read push button input.
+Used to:
 
-SysTick Timer
+* Control LEDs (output)
+* Read push button (input)
 
-- Generates interrupt every 1 ms
-- Used for delay and timing control
-- Drives traffic light timing logic
+### SysTick Timer
 
-SPI (Serial Peripheral Interface)
+* Generates interrupt every 1 ms
+* Used for delay and timing control
+* Drives traffic light timing logic
 
-- Used to communicate with TFT display
-- Sends pixel and text data
+### SPI (Serial Peripheral Interface)
 
-⏱️ SysTick Timer Working
+* Used to communicate with TFT display
+* Sends pixel and text data
+
+---
+
+## ⏱️ SysTick Timer Working
 
 The SysTick timer provides system timing:
 
@@ -70,29 +83,37 @@ The SysTick timer provides system timing:
 4. Global time variable increments
 5. Used by delay function
 
-🔁 System Flow
+---
 
-Normal Operation:
+## 🔁 System Flow
 
-- Green → Yellow → Red → repeat
+### Normal Operation
 
-Pedestrian Mode:
+* Green → Yellow → Red → repeat
 
-- Button pressed
-- System switches to pedestrian state
-- Display shows "WAIT"
-- Returns to normal cycle
+### Pedestrian Mode
 
-🖥️ Display Functionality
+* Button pressed
+* System switches to pedestrian state
+* Display shows **"WAIT"**
+* Returns to normal cycle
+
+---
+
+## 🖥️ Display Functionality
 
 The TFT display shows:
 
-- GREEN
-- YELLOW
-- RED
-- PEDESTRIAN WAIT
-  
-🔧 Software Structure
+* GREEN
+* YELLOW
+* RED
+* PEDESTRIAN WAIT
+
+---
+
+## 🔧 Software Structure
+
+```
 src/
  ├── main.c
  ├── display.c
@@ -104,61 +125,86 @@ include/
  ├── spi.h
  ├── eeng1030_lib.h
  ├── font5x7.h
+```
 
-▶️ How to Run the Project
+---
+
+## ▶️ How to Run the Project
 
 1. Clone repository:
 
+```bash
 git clone https://github.com/YOUR_USERNAME/REPO_NAME.git
+```
 
 2. Open in PlatformIO
 
 3. Build and upload:
 
+```bash
 pio run --target upload
+```
 
-4. Connect hardware as per schematic
-🔬 Testing and Debugging
+4. Connect hardware according to schematic
 
-- Verified LED switching using GPIO outputs
-- Verified SysTick timing using delays
-- Verified SPI communication via display output
-- Debugged using:
-  - LED indicators
-  - Display messages
+---
 
-📊 Results
+## 🔬 Testing and Debugging
 
-- LEDs switch correctly with timing
-- Button triggers pedestrian mode
-- Display updates in real time
-- System operates reliably
-📷 Project Images
+* Verified LED switching using GPIO outputs
+* Verified SysTick timing using delay functions
+* Verified SPI communication via display output
+* Debugged using:
 
-Circuit Setup
+  * LED indicators
+  * Display messages
 
-👉 (Insert breadboard image)
+---
 
-Schematic
-![sche](https://github.com/user-attachments/assets/f0378a59-ec3e-4567-8522-cc358db86989)
+## 📊 Results
 
-Working Output
+* LEDs switch correctly with timing
+* Button triggers pedestrian mode
+* Display updates in real time
+* System operates reliably
 
-👉 (Insert LED + display image)
-📚 References
+---
+
+## 📷 Project Images
+
+### Circuit Setup
+
+👉 *(Insert breadboard image here)*
+
+### Schematic
+
+👉 *(Insert KiCad schematic here)*
+
+### Working Output
+
+👉 *(Insert LED + display image here)*
+
+---
+
+## 📚 References
 
 1. STM32L4 Reference Manual
 2. STM32Cube HAL Documentation
 3. ST7735 TFT Datasheet
 4. PlatformIO Documentation
 5. ARM Cortex-M SysTick Documentation
-🎥 Demonstration
 
-👉 (Insert YouTube link here)
+---
 
-👨‍💻 Author
+## 🎥 Demonstration
 
-Your Name
+👉 *(Insert YouTube link here)*
+
+---
+
+## 👨‍💻 Author
+
+**Your Name**
 Embedded Systems Project
 
 ---
