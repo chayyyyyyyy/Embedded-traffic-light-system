@@ -28,12 +28,6 @@ The project demonstrates key embedded system concepts:
 
 ## 🧠 System Architecture
 
-### Block Diagram
-
-👉 *(Insert your block diagram image here)*
-
----
-
 ## 🔌 Hardware Components
 
 | Component           | Quantity |
@@ -171,10 +165,6 @@ pio run --target upload
 
 ## 📷 Project Images
 
-### Circuit Setup
-
-👉 *(Insert breadboard image here)*
-
 ### Schematic
 
 ![sche](https://github.com/user-attachments/assets/c78c6582-43c4-4bfd-9338-26a3836846c0)
@@ -197,8 +187,8 @@ pio run --target upload
 ---
 
 ## 🎥 Demonstration
-
-👉 *(Insert YouTube link here)*
+[
+[((https://youtu.be/-ziwk6SiW4I?is=6-LdcmGsTmjtDvz0)](url)
 
 ---
 
