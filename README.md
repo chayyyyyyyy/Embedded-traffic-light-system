@@ -205,7 +205,7 @@ pio run --target upload
 
 ## 👨‍💻 Author
 
-**Your Name**
+SAI VIDYA CHAITANYA PENTA
 Embedded Systems Project
 
 ---
