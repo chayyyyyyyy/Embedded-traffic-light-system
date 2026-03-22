@@ -28,17 +28,20 @@ Block Diagram
 👉 (Insert your block diagram image here)
 
 🔌 Hardware Components
+## 🔌 Hardware Components
 
-Component| Quantity
-STM32 Nucleo-L432KC| 1
-Red LED| 1
-Yellow LED| 1
-Green LED| 1
-220Ω Resistors| 3
-Push Button| 1
-ST7735 TFT Display| 1
-Breadboard| 1
-Jumper Wires| Multiple
+| Component           | Quantity |
+| ------------------- | -------- |
+| STM32 Nucleo-L432KC | 1        |
+| Red LED             | 1        |
+| Yellow LED          | 1        |
+| Green LED           | 1        |
+| 220Ω Resistors      | 3        |
+| Push Button         | 1        |
+| ST7735 TFT Display  | 1        |
+| Breadboard          | 1        |
+| Jumper Wires        | Multiple |
+
 
 ⚙️ Peripherals Used
 
@@ -136,8 +139,7 @@ Circuit Setup
 👉 (Insert breadboard image)
 
 Schematic
-
-👉 (Insert KiCad schematic)
+![sche](https://github.com/user-attachments/assets/f0378a59-ec3e-4567-8522-cc358db86989)
 
 Working Output
 
