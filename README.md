@@ -1,7 +1,6 @@
 # 🚦 Smart Traffic Light System using STM32 (Nucleo-L432KC)
 
 ---
-
 ## 📌 Project Overview
 
 This project implements a **Smart Traffic Light System** using an STM32 microcontroller.
