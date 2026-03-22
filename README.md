@@ -178,7 +178,8 @@ pio run --target upload
 
 ### Schematic
 
-👉 *(Insert KiCad schematic here)*
+![sche](https://github.com/user-attachments/assets/c78c6582-43c4-4bfd-9338-26a3836846c0)
+
 
 ### Working Output
 
