@@ -1,4 +1,3 @@
-# Embedded-traffic-light-system
 🚦 Smart Traffic Light System using STM32 (Nucleo-L432KC)
 
 📌 Project Overview
@@ -13,6 +12,7 @@ The project demonstrates embedded system concepts including:
 - SPI communication
 - Hardware Abstraction Layer (HAL)
 - Interrupt-driven timing
+
 🎯 Objectives
 
 - Design a working embedded traffic system
@@ -24,6 +24,8 @@ The project demonstrates embedded system concepts including:
 🧠 System Architecture
 
 Block Diagram
+
+👉 (Insert your block diagram image here)
 
 🔌 Hardware Components
 
@@ -86,7 +88,6 @@ The TFT display shows:
 - YELLOW
 - RED
 - PEDESTRIAN WAIT
-
 🔧 Software Structure
 
 src/
@@ -100,7 +101,6 @@ include/
  ├── spi.h
  ├── eeng1030_lib.h
  ├── font5x7.h
-
 ▶️ How to Run the Project
 
 1. Clone repository:
@@ -114,7 +114,6 @@ git clone https://github.com/YOUR_USERNAME/REPO_NAME.git
 pio run --target upload
 
 4. Connect hardware as per schematic
-
 🔬 Testing and Debugging
 
 - Verified LED switching using GPIO outputs
@@ -130,7 +129,6 @@ pio run --target upload
 - Button triggers pedestrian mode
 - Display updates in real time
 - System operates reliably
-
 📷 Project Images
 
 Circuit Setup
@@ -144,8 +142,6 @@ Schematic
 Working Output
 
 👉 (Insert LED + display image)
-
-
 📚 References
 
 1. STM32L4 Reference Manual
@@ -153,13 +149,13 @@ Working Output
 3. ST7735 TFT Datasheet
 4. PlatformIO Documentation
 5. ARM Cortex-M SysTick Documentation
-
 🎥 Demonstration
 
 👉 (Insert YouTube link here)
 
-
 👨‍💻 Author
 
-SAI VIDYA CHAITANYA PENTA
+Your Name
 Embedded Systems Project
+
+---
