@@ -92,18 +92,7 @@ The TFT display shows:
 - RED
 - PEDESTRIAN WAIT
 🔧 Software Structure
-
-src/
- ├── main.c
- ├── display.c
- ├── spi.c
- ├── eeng1030_lib.c
-
-include/
- ├── display.h
- ├── spi.h
- ├── eeng1030_lib.h
- ├── font5x7.h
+src/ ├── main.c ├── display.c ├── spi.c ├── eeng1030_lib.c include/ ├── display.h ├── spi.h ├── eeng1030_lib.h ├── font5x7.h
 ▶️ How to Run the Project
 
 1. Clone repository:
