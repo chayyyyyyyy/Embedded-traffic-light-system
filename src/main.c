@@ -1,14 +1,16 @@
 #include "stm32l4xx_hal.h"
+#include "display.h"
+#include "eeng1030_lib.h"
 
 void SystemClock_Config(void);
+
 static void GPIO_Init(void);
 static int Button_Pressed(void);
 
-// SysTick interrupt
-void SysTick_Handler(void)
-{
-    HAL_IncTick();
-}
+static void Show_Green(void);
+static void Show_Red(void);
+static void Show_Yellow(void);
+static void Show_Pedestrian(void);
 
 int main(void)
 {
@@ -16,43 +18,57 @@ int main(void)
     SystemClock_Config();
     GPIO_Init();
 
-    uint32_t start_time;
+    init_display();
+    clear();
 
     while (1)
     {
-        // ---------------- GREEN ----------------
+        // GREEN state
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_5, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+        Show_Green();
 
-         start_time = HAL_GetTick();
+        int pedestrian_request = 0;
 
-        while (HAL_GetTick() - start_time < 4000)
+        for (int t = 0; t < 4000; t += 50)
         {
             if (Button_Pressed())
             {
-                // YELLOW (2 sec)
-                HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7 | GPIO_PIN_6, GPIO_PIN_RESET);
-                HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-                HAL_Delay(2000);
-
-                // RED (5 sec)
-                HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7 | GPIO_PIN_5, GPIO_PIN_RESET);
-                HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
-                HAL_Delay(5000);
-
+                pedestrian_request = 1;
                 break;
             }
+
+            delay_ms(50);
         }
 
-        // ---------------- RED ----------------
+        if (pedestrian_request)
+        {
+            // YELLOW state for 2 seconds
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7 | GPIO_PIN_6, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+            Show_Yellow();
+            delay_ms(2000);
+
+            // RED / pedestrian crossing for 5 seconds
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7 | GPIO_PIN_5, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+            Show_Pedestrian();
+            delay_ms(5000);
+
+            continue;
+        }
+
+        // RED state
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7 | GPIO_PIN_5, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
-        HAL_Delay(4000);
+        Show_Red();
+        delay_ms(4000);
 
-        // ---------------- YELLOW ----------------
+        // YELLOW state
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7 | GPIO_PIN_6, GPIO_PIN_RESET);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-        HAL_Delay(1500);
+        Show_Yellow();
+        delay_ms(1500);
     }
 }
 
@@ -62,19 +78,20 @@ static void GPIO_Init(void)
 
     GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-    // LED pins
+    // LED pins: PA5 = Yellow, PA6 = Red, PA7 = Green
     GPIO_InitStruct.Pin = GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7;
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-    // Button pin
+    // Button pin: PA1 using internal pull-up
     GPIO_InitStruct.Pin = GPIO_PIN_1;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
     GPIO_InitStruct.Pull = GPIO_PULLUP;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+    // Turn all LEDs OFF initially
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7, GPIO_PIN_RESET);
 }
 
@@ -82,15 +99,57 @@ static int Button_Pressed(void)
 {
     if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == GPIO_PIN_RESET)
     {
-        HAL_Delay(20); // debounce
+        delay_ms(20);   // debounce delay
 
         if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == GPIO_PIN_RESET)
         {
-            while (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == GPIO_PIN_RESET);
+            while (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == GPIO_PIN_RESET)
+            {
+                // wait until button is released
+            }
+
             return 1;
         }
     }
+
     return 0;
+}
+
+static void Show_Green(void)
+{
+    uint16_t bg = RGBToWord(0, 0, 0);
+
+    clear();
+    fillRectangle(0, 0, 160, 80, bg);
+    printTextX2("GREEN", 28, 28, RGBToWord(255, 255, 255), bg);
+}
+
+static void Show_Red(void)
+{
+    uint16_t bg = RGBToWord(0, 0, 0);
+
+    clear();
+    fillRectangle(0, 0, 160, 80, bg);
+    printTextX2("RED", 44, 28, RGBToWord(255, 255, 255), bg);
+}
+
+static void Show_Yellow(void)
+{
+    uint16_t bg = RGBToWord(0, 0, 0);
+
+    clear();
+    fillRectangle(0, 0, 160, 80, bg);
+    printTextX2("YELLOW", 18, 28, RGBToWord(255, 255, 255), bg);
+}
+
+static void Show_Pedestrian(void)
+{
+    uint16_t bg = RGBToWord(0, 0, 0);
+
+    clear();
+    fillRectangle(0, 0, 160, 80, bg);
+    printText("PEDESTRIAN CROSSING", 20, 20, RGBToWord(255, 255, 255), bg);
+    printTextX2("WAIT", 42, 42, RGBToWord(255, 255, 255), bg);
 }
 
 void SystemClock_Config(void)
@@ -105,12 +164,14 @@ void SystemClock_Config(void)
     RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_6;
     RCC_OscInitStruct.MSICalibrationValue = RCC_MSICALIBRATION_DEFAULT;
     RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+
     HAL_RCC_OscConfig(&RCC_OscInitStruct);
 
     RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK |
                                   RCC_CLOCKTYPE_SYSCLK |
                                   RCC_CLOCKTYPE_PCLK1 |
                                   RCC_CLOCKTYPE_PCLK2;
+
     RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_MSI;
     RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
     RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
